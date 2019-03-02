@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fillit.h                                           :+:      :+:    :+:   */
+/*   my_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/02 18:08:17 by bdudley           #+#    #+#             */
-/*   Updated: 2019/03/02 22:14:46 by bdudley          ###   ########.fr       */
+/*   Created: 2019/03/02 19:22:56 by bdudley           #+#    #+#             */
+/*   Updated: 2019/03/02 22:14:49 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILLIT_H
-#define FILLIT_H
+#include "fillit.h"
 
-#include "libft/libft.h"
-
-struct	s_tetrimino
+int main()
 {
-	char letter;
-	unsigned short value;
-	unsigned short weight;
-	unsigned short height;
-	unsigned short x;
-	unsigned short y;
-} t_tetrimino;
-#endif
+	t_tetrimino tetrimionos[27];
+
+	(tetriminos[0])->letter = 'A';
+	(tetriminos[0])->value = 52224;
+	(tetriminos[0])->width = 2;
+	(tetriminos[0])->hidth = 2;
+	(tetriminos[0])->x = 0;
+	(tetriminos[0])->y = 0;
+	solution(tetriminos);
+	return (0);
+}
