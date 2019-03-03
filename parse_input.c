@@ -12,7 +12,7 @@ int	read_tetrimino(t_tetrimino *tetriminos, int fd)
 	while ((nbytes = read(fd, buff, BUFF_SIZE)) >= BUFF_SIZE - 1)
 	{
 		buff[nbytes] = '\0';
-		if (is_tetrimino_valid(buff))
+		if (count <= 25 && is_tetrimino_valid(buff))
 			tetriminos[count] = save_tetrimino(buff, letter + count);
 		else
 			return (0);
