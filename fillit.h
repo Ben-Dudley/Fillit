@@ -11,9 +11,10 @@
 /* ************************************************************************** */
 
 #ifndef FILLIT_H
-#define FILLIT_H
+# define FILLIT_H
 
-#include "libft/libft.h"
+# include "libft/libft.h"
+# define BUFF_SIZE 21
 
 struct	s_tetrimino
 {
@@ -24,4 +25,5 @@ struct	s_tetrimino
 	unsigned short x;
 	unsigned short y;
 } t_tetrimino;
+
 #endif
