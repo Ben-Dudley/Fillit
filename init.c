@@ -1,13 +1,26 @@
 #include "fillit.h"
 
-t_tetrimino     init_tetrimino(const char *buff, char letter)
+unsigned short	get_width(const char *str)
 {
-        t_terimino      tetrimino;
+}
 
-        tetrimino.letter = letter;
-        tetrimino.width = get_width(buff);
-        tetrimino.height = get_height(buff);
-        tetrimino.value = get_value(buff);
-        return (tetrimino);
+unsigned short  get_height(const char *str)
+{
+}
+
+unsigned short  get_value(const char *str)
+{
+
+}
+
+t_tetriminos     init_tetriminos(const char *str, char letter)
+{
+        t_teriminos      tetriminos;
+
+        tetriminos.letter = letter;
+        tetriminos.width = get_width(str);
+        tetriminos.height = get_height(str);
+        tetriminos.value = get_value(str);
+        return (tetriminos);
 }
 

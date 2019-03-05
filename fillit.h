@@ -16,7 +16,7 @@
 # include "libft/libft.h"
 # define BUFF_SIZE 21
 
-struct	s_tetrimino
+struct	s_tetriminos
 {
 	char letter;
 	unsigned short value;
@@ -24,6 +24,8 @@ struct	s_tetrimino
 	unsigned short height;
 	unsigned short x;
 	unsigned short y;
-} t_tetrimino;
+} t_tetriminos;
+
+t_tetriminos     init_tetriminos(const char *str, char letter);
 
 #endif
