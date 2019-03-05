@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 19:22:56 by bdudley           #+#    #+#             */
-/*   Updated: 2019/03/02 22:14:49 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/03/05 17:33:43 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int main()
 {
-	t_tetrimino tetrimionos[27];
+	t_tetriminos	tetriminos[27];
 
-	(tetriminos[0])->letter = 'A';
-	(tetriminos[0])->value = 52224;
-	(tetriminos[0])->width = 2;
-	(tetriminos[0])->hidth = 2;
-	(tetriminos[0])->x = 0;
-	(tetriminos[0])->y = 0;
-	solution(tetriminos);
+	tetriminos[0].letter = 'A';
+	tetriminos[0].value = 52224;
+	tetriminos[0].width = 2;
+	tetriminos[0].height = 2;
+	tetriminos[0].x = 0;
+	tetriminos[0].y = 0;
+	solution(tetriminos, 2);
 	return (0);
 }
