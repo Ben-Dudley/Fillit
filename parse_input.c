@@ -1,18 +1,37 @@
 #include "fillit.h"
 
+int	is_block_valid(const char *buff, int cell)
+{
+	if (cell > 4 && buff[cell - 5] == '#' ||
+		cell < 15 && buff[cell + 5] == '#' ||
+		cell % 5 > 0 && buff[cell - 1] == '#' ||
+		cell % 5 < 4 && buff[cell + 1] == '#')
+		return (1);
+	return (0);
+}
+
 int	is_tetriminos_valid(const char *buff, int len)
 {
 	int i;
+	int nblocks;
 
 	i = 0;
+	nblocks = 0;
 	while (i < len - 1)
 	{
-		if (i % 5 != 4 && (buff[i] != '.' || buff[i] != '#'))
-			return (0);
-		else {
-			if (buff[i] != '\n')
+		if (i % 5 != 4)
+		{
+			if (buff[i] == '#')
+			{
+				nblocks += 1;
+				if (nblocks > 4 || !is_block_valid(buff, i))
+					return (0);
+			}
+			else if (buff[i] != '.')
 				return (0);
 		}
+		else if (buff[i] != '\n')
+			return (0);
 		i += 1;
 	}
 	if (len == BUFF_SIZE && buff[i] != '\n')
