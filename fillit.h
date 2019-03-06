@@ -13,8 +13,10 @@
 #ifndef FILLIT_H
 # define FILLIT_H
 
-# include "libft/libft.h"
+//# include "libft/libft.h"
+# include <fcntl.h>
 # define BUFF_SIZE 21
+# define MAX_TETRIMINOS 26
 
 typedef struct	s_tetriminos
 {

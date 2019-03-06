@@ -61,7 +61,7 @@ unsigned short  get_value(const char *str)
 
 t_tetriminos     init_tetriminos(const char *str, char letter)
 {
-        t_teriminos      tetriminos;
+        t_tetriminos      tetriminos;
 
         tetriminos.letter = letter;
         tetriminos.value = get_value(str);
