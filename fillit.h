@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 18:08:17 by bdudley           #+#    #+#             */
-/*   Updated: 2019/03/05 22:10:56 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/03/06 14:57:34 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ typedef struct	s_tetriminos
 
 t_tetriminos	init_tetriminos(const char *str, char letter);
 void			solution_help(t_tetriminos tetriminos[27]);
-int				solution(t_tetriminos tetriminos[27], unsigned short size_map, unsigned short map[17], unsigned short number);
+void			print(t_tetriminos tetriminos[27], unsigned short map[17]);
 
 #endif
