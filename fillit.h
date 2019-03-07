@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 19:58:25 by bdudley           #+#    #+#             */
-/*   Updated: 2019/03/07 20:00:11 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/03/07 20:49:58 by jgoyette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct	s_tetriminos
 } t_tetriminos;
 
 t_tetriminos	init_tetriminos(const char *str, char letter);
-void			solution_help(t_tetriminos tetriminos[27], int number);
+unsigned short        find_smallest_square(t_tetriminos tetriminos[27], int number);
 void			print(t_tetriminos tetriminos[27], unsigned short map[17], unsigned short size_map, int number);
 int				read_tetriminos(t_tetriminos *tetriminos, int fd);
 

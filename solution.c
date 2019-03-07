@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 19:20:14 by bdudley           #+#    #+#             */
-/*   Updated: 2019/03/07 20:02:11 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/03/07 21:05:51 by jgoyette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		check_tetrimino(t_tetriminos tetrimino, unsigned short size_map, unsigned s
 	row = -1;
 	while (++row < 4)
 	{
-		while (tetrimino.x + tetrimino.width > size_map && tetrimino.y + tetrimino.height <= size_map)
+		while ((tetrimino.x + tetrimino.width) > size_map && (tetrimino.y + tetrimino.height) <= size_map)
 		{
 			tetrimino.y += 1;	
 			tetrimino.x = 0;
@@ -50,10 +50,10 @@ void	put_shape(t_tetriminos tetrimino, unsigned short map[17])
 	while (++row < 4)
 	{
 		tmp =(tetrimino.value << 4*row);
-		tmp = tmp >> (3 - row)*4;
-		tmp = (tmp << (3 - row)*4) >> tetrimino.x;
+		tmp = tmp >> 12;
+		tmp = (tmp << 12) >> tetrimino.x;
 		map[tetrimino.y + row] = map[tetrimino.y + row] + tmp;
-		printf("map = %d\n", map[tetrimino.y + row]);
+		printf("put_shape: map = %d\n", map[tetrimino.y + row]);
 	}
 }
 
@@ -70,7 +70,7 @@ void	delete_shape(t_tetriminos tetrimino, unsigned short map[17])
 		tmp = tmp >> (3 - row)*4;
 		tmp = (tmp << (3 - row)*4) >> tetrimino.x;
 		map[tetrimino.y + row] = map[tetrimino.y + row] - tmp;
-		printf("map = %d\n", map[tetrimino.y + row]);
+		printf("delete_shape: map = %d\n", map[tetrimino.y + row]);
 	}
 }
 
@@ -101,7 +101,7 @@ int	solution(t_tetriminos tetriminos[27], unsigned short size_map, unsigned shor
 	return(0);
 }
 
-void		solution_help(t_tetriminos tetriminos[27], int number)
+unsigned short		find_smallest_square(t_tetriminos tetriminos[27], int number)
 {
 	unsigned short map[17];
 	unsigned short	size_map;
@@ -116,5 +116,6 @@ void		solution_help(t_tetriminos tetriminos[27], int number)
 		ft_bzero(map, 17*sizeof(unsigned short));
 		size_map++;
 	}
+	return (size_map);
 //	print(tetriminos, map, size_map, number);
 }
