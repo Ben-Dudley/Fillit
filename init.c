@@ -1,4 +1,5 @@
 #include "fillit.h"
+#include "stdio.h"
 
 unsigned short	get_width(unsigned short value)
 {
@@ -16,6 +17,7 @@ unsigned short	get_width(unsigned short value)
                         break ;
                 i += 1;
         }
+		printf("width: %d\n", width);
         return (width);
 }
 
@@ -35,6 +37,7 @@ unsigned short  get_height(unsigned short value)
 			break ;
 		i += 1;
 	}
+	printf("height: %d\n", height);
 	return (height);
 }
 
@@ -56,6 +59,7 @@ unsigned short  get_value(const char *str)
 		value = value << 1;
 	while (!(value & 0b1111000000000000))
 		value = value << 4;
+	printf("value: %d\n", value);
 	return (value);
 }
 
@@ -65,7 +69,7 @@ t_tetriminos     init_tetriminos(const char *str, char letter)
 
         tetriminos.letter = letter;
         tetriminos.value = get_value(str);
-	tetriminos.width = get_width(tetriminos.value);
+		tetriminos.width = get_width(tetriminos.value);
         tetriminos.height = get_height(tetriminos.value);
         return (tetriminos);
 }
