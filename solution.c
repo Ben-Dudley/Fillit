@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 19:20:14 by bdudley           #+#    #+#             */
-/*   Updated: 2019/03/07 19:15:16 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/03/07 20:02:11 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	put_shape(t_tetriminos tetrimino, unsigned short map[17])
 		tmp = tmp >> (3 - row)*4;
 		tmp = (tmp << (3 - row)*4) >> tetrimino.x;
 		map[tetrimino.y + row] = map[tetrimino.y + row] + tmp;
-		//printf("map = %d\n", map[tetrimino.y + row]);
+		printf("map = %d\n", map[tetrimino.y + row]);
 	}
 }
 
@@ -70,13 +70,13 @@ void	delete_shape(t_tetriminos tetrimino, unsigned short map[17])
 		tmp = tmp >> (3 - row)*4;
 		tmp = (tmp << (3 - row)*4) >> tetrimino.x;
 		map[tetrimino.y + row] = map[tetrimino.y + row] - tmp;
-		//printf("map = %d\n", map[tetrimino.y + row]);
+		printf("map = %d\n", map[tetrimino.y + row]);
 	}
 }
 
 int	solution(t_tetriminos tetriminos[27], unsigned short size_map, unsigned short map[17], int  number)
 {
-	//printf("Start! %d\n", number);
+	printf("Start! %d\n", size_map);
 	if (tetriminos[number].letter == '\0')
 		return (1);
 	if (check_tetrimino(tetriminos[number], size_map, map))
@@ -107,10 +107,12 @@ void		solution_help(t_tetriminos tetriminos[27], int number)
 	unsigned short	size_map;
 
 	size_map = 2;
+	while (size_map*size_map < number*4)
+		size_map++;
 	ft_bzero(map, 17*sizeof(unsigned short));
 	while ((solution(tetriminos, size_map, map, 0)) == 0)
 	{
-		//printf("While\n");
+		printf("While\n");
 		ft_bzero(map, 17*sizeof(unsigned short));
 		size_map++;
 	}

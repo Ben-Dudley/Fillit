@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 19:22:56 by bdudley           #+#    #+#             */
-/*   Updated: 2019/03/07 18:54:05 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/03/07 20:03:05 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ int main()
 	tetriminos[1].x = 0;
 	tetriminos[1].y = 0;
 	tetriminos[2].letter = '\0';
-	solution_help(tetriminos ,1);
+	solution_help(tetriminos ,2);
 	return (0);
 }
