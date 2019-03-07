@@ -3,7 +3,7 @@
 
 int	display_error_and_exit(const char *error_msg)
 {
-	printf(error_msg);
+	printf("%s", error_msg);
 	return (1);
 }
 

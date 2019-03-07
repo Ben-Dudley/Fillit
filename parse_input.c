@@ -21,7 +21,7 @@ int	is_tetriminos_valid(const char *buff, int len)
 	printf("will check if tetriminos is valid: ");
 	while (i < len - 1)
 	{
-		printf("[i = %d] \n", i);
+		//printf("[i = %d] \n", i);
 		if (i % 5 != 4)
 		{
 			if (buff[i] == '#')
@@ -42,7 +42,7 @@ int	is_tetriminos_valid(const char *buff, int len)
 	}
 	if ((len == BUFF_SIZE && buff[i] != '\n') || nblocks < 4)
 		return (0);
-	printf("0");
+	printf("0\n");
 	return (1);
 }
 
