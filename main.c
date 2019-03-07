@@ -25,6 +25,7 @@ int	main(int ac, char **av)
 				 return (display_error_and_exit("error\n"));}
 	size = find_smallest_square(tetriminos, num_tetriminos);
 	printf("solution map size: %d\n", size);
+	//print(tetriminos, size, num_tetriminos);
 	//display_solution(tetriminos, num_tetriminos, size);
 	close(fd);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 19:20:14 by bdudley           #+#    #+#             */
-/*   Updated: 2019/03/07 21:05:51 by jgoyette         ###   ########.fr       */
+/*   Updated: 2019/03/07 22:11:43 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,6 @@ unsigned short		find_smallest_square(t_tetriminos tetriminos[27], int number)
 		ft_bzero(map, 17*sizeof(unsigned short));
 		size_map++;
 	}
+	print(tetriminos, size_map, number);
 	return (size_map);
-//	print(tetriminos, map, size_map, number);
 }
