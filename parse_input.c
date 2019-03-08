@@ -55,6 +55,7 @@ int	read_tetriminos(t_tetriminos *tetriminos, int fd)
 
 	count = 0;
 	letter = 'A';
+	ft_bzero(tetriminos, sizeof(t_tetriminos) * MAX_TETRIMINOS + 1);
 	while ((nbytes = read(fd, buff, BUFF_SIZE)) >= BUFF_SIZE - 1)
 	{
 		printf("read nbytes: %d\n", nbytes);
