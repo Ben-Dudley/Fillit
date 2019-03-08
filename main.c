@@ -17,16 +17,12 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		return (display_error_and_exit("usage: ./fillit [filename]\n"));
 	if ((fd = open(av[1], O_RDONLY)) == -1)
-	{
-		printf("fd: %d\n", fd);
-		return (display_error_and_exit("error\n"));}
-	if ((num_tetriminos = read_tetriminos(tetriminos, fd)) == 0) {
-				printf("calling read_tetriminos()\n");
-				 return (display_error_and_exit("error\n"));}
+		return (display_error_and_exit("error\n"));
+	if ((num_tetriminos = read_tetriminos(tetriminos, fd)) == 0)
+		return (display_error_and_exit("error\n"));
 	size = find_smallest_square(tetriminos, num_tetriminos);
 	printf("solution map size: %d\n", size);
 	//print(tetriminos, size, num_tetriminos);
-	//display_solution(tetriminos, num_tetriminos, size);
-	close(fd);
+	//display_solution(tetriminos, num_tetriminos, size);`
 	return (0);
 }

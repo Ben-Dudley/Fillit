@@ -62,10 +62,11 @@ int	read_tetriminos(t_tetriminos *tetriminos, int fd)
 		if (count <= 25 && is_tetriminos_valid(buff, nbytes))
 			tetriminos[count] = init_tetriminos(buff, letter + count);
 		else
-			return (0);
+			break ;
 		count += 1;
 	}
 	printf("read %d bytes\n", nbytes);
+	close(fd);
 	if (nbytes == 0)
 		return (count);
 	else
