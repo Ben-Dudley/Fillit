@@ -65,7 +65,7 @@ int	read_tetriminos(t_tetriminos *tetriminos, int fd)
 			return (0);
 		count += 1;
 	}
-	printf("i read %d bytes\n", nbytes);
+	printf("read %d bytes\n", nbytes);
 	if (nbytes == 0)
 		return (count);
 	else

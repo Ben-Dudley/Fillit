@@ -17,7 +17,7 @@ unsigned short	get_width(unsigned short value)
                         break ;
                 i += 1;
         }
-		printf("width: %d\n", width);
+	printf("width: %d\n", width);
         return (width);
 }
 
@@ -28,7 +28,6 @@ unsigned short  get_height(unsigned short value)
 
 	height = 1;
 	i = 0;
-
 	while (i < 3)
 	{
 		if (value & (0b111100000000 >> (4 * i)))
@@ -69,7 +68,7 @@ t_tetriminos     init_tetriminos(const char *str, char letter)
 
         tetriminos.letter = letter;
         tetriminos.value = get_value(str);
-		tetriminos.width = get_width(tetriminos.value);
+	tetriminos.width = get_width(tetriminos.value);
         tetriminos.height = get_height(tetriminos.value);
         return (tetriminos);
 }
