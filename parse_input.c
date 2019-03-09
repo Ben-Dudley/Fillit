@@ -6,13 +6,13 @@
 /*   By: jgoyette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 16:16:06 by jgoyette          #+#    #+#             */
-/*   Updated: 2019/03/09 20:26:20 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/03/09 21:12:55 by jgoyette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int	is_block_valid(const char *buff, int cell)
+int	get_block_connections(const char *buff, int cell)
 {
 	int	connections;
 
@@ -25,16 +25,18 @@ int	is_block_valid(const char *buff, int cell)
 		connections += 1;
 	if (cell % 5 < 4 && buff[cell + 1] == '#')
 		connections += 1;
-	return (connections == 6 || connections == 8);
+	return (connections);
 }
 
 int	is_tetris_valid(const char *buff, int len)
 {
 	int i;
 	int nblocks;
+	int connections;
 
 	i = 0;
 	nblocks = 0;
+	connections = 0;
 	while (i < len - 1)
 	{
 		if (i % 5 != 4)
@@ -42,7 +44,8 @@ int	is_tetris_valid(const char *buff, int len)
 			if (buff[i] == '#')
 			{
 				nblocks += 1;
-				if (nblocks > 4 || !is_block_valid(buff, i))
+				connections += get_block_connections(buff, i);
+				if (nblocks > 4)
 					return (0);
 			}
 			else if (buff[i] != '.')
@@ -52,7 +55,7 @@ int	is_tetris_valid(const char *buff, int len)
 			return (0);
 		i += 1;
 	}
-	if ((len == BUFF_SIZE && buff[i] != '\n') || nblocks < 4)
+	if ((len == BUFF_SIZE && buff[i] != '\n') || nblocks < 4 || !(connections == 6 || connections == 8))
 		return (0);
 	return (1);
 }
