@@ -71,9 +71,9 @@ int	read_tetris(t_tetris *tetris, int fd)
 	while ((nbytes = read(fd, buff, BUFF_SIZE)) >= BUFF_SIZE - 1)
 	{
 		buff[nbytes] = '\0';
-		if (nbytes == 20)
+		if (nbytes == BUFF_SIZE - 1)
 			found_eof = 1;
-		if (count <= 25 && is_tetris_valid(buff, nbytes))
+		if (count < MAX_TETRIS && is_tetris_valid(buff, nbytes))
 			tetris[count] = init_tetris(buff, letter + count);
 		else
 			break ;
