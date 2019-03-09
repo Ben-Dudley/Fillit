@@ -6,11 +6,11 @@
 #    By: bdudley <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/26 17:59:10 by bdudley           #+#    #+#              #
-#    Updated: 2019/03/09 14:13:37 by bdudley          ###   ########.fr        #
+#    Updated: 2019/03/09 14:37:16 by bdudley          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ./fillit
+AME = ./fillit
 
 I = gcc -Wall -Wextra -Werror -c
 I_2 = gcc $(O_LIBFT) $(O_FILLIT) -o $(NAME)
