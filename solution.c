@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 19:20:14 by bdudley           #+#    #+#             */
-/*   Updated: 2019/03/09 15:47:19 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/03/09 16:21:46 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ int				check_tetrimino(t_tetriminos *tetrimino,
 		}
 		if ((*tetrimino).y + (*tetrimino).height > size_map)
 			return (0);
+		printf("x = %d y = %d row =%d\n", (*tetrimino).x, (*tetrimino).y, row);
 		tmp = ((*tetrimino).value << 4 * row);
 		tmp = tmp >> 12;
 		tmp = (tmp << 12) >> (*tetrimino).x;
-	//	printf("index = %d", (*tetrimino).y);
+		printf("tmp - %d, map = %d", tmp, map[(*tetrimino).y + row]);
 		if (tmp & map[(*tetrimino).y + row])
 		{
 			(*tetrimino).x++;
@@ -55,7 +56,7 @@ void			put_shape(t_tetriminos tetrimino, unsigned short *map[17])
 		tmp = (tetrimino.value << 4 * row);
 		tmp = tmp >> 12;
 		tmp = (tmp << 12) >> tetrimino.x;
-		(*map)[tetrimino.y + row] = (*map)[tetrimino.y + row] + tmp;
+		(*map)[tetrimino.y + row] = (*map)[tetrimino.y + row] | tmp;
 //		printf("put = %d\n", (*map)[tetrimino.y + row]);
 	}
 }
@@ -72,7 +73,7 @@ void			delete_shape(t_tetriminos tetrimino, unsigned short *map[17])
 		tmp = (tetrimino.value << 4 * row);
 		tmp = tmp >> 12;
 		tmp = (tmp << 12) >> tetrimino.x;
-		(*map)[tetrimino.y + row] = (*map)[tetrimino.y + row] - tmp;
+		(*map)[tetrimino.y + row] = (*map)[tetrimino.y + row] & ~tmp;
 	}
 }
 
@@ -86,7 +87,7 @@ int				solution(t_tetriminos tetriminos[27], unsigned short size_map,
 	{
 		printf("put_shape = %d\n", tetriminos[number].y);
 		put_shape(tetriminos[number], &map);
-	//	print(tetriminos, size_map, number + 1);
+		print(tetriminos, size_map, number + 1);
 		if (solution(tetriminos, size_map, map, number + 1))
 			return (1);
 	}
@@ -96,17 +97,19 @@ int				solution(t_tetriminos tetriminos[27], unsigned short size_map,
 		tetriminos[number].y = 0;
 		if (number - 1 >= 0)
 		{
-			printf("delete_shape\n");
+			printf("\tdelete_shape\n");
+			printf("number = %d\n", number - 1);
 			delete_shape(tetriminos[number - 1], &map);
-			print(tetriminos, size_map, number + 1);
+			print(tetriminos, size_map, number - 1);
 			printf("\n");
 			tetriminos[number - 1].x++;
+			printf("number = %d\n", number - 1);
 			solution(tetriminos, size_map, map, number - 1);
 		}
 		else
 			return (0);
 	}
-	return (0);
+	return (1);
 }
 
 unsigned short	find_smallest_square(t_tetriminos tetriminos[27], int number)
