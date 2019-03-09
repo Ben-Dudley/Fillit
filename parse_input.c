@@ -37,27 +37,23 @@ int	is_tetris_valid(const char *buff, int len)
 	i = 0;
 	nblocks = 0;
 	connections = 0;
-	while (i < len - 1)
+	while (i < len)
 	{
-		if (i % 5 != 4)
+		if (i % 5 != 4 && i < len - 1)
 		{
 			if (buff[i] == '#')
 			{
 				nblocks += 1;
 				connections += get_block_connections(buff, i);
-				if (nblocks > 4)
-					return (0);
 			}
 			else if (buff[i] != '.')
 				return (0);
 		}
-		else if (buff[i] != '\n')
+		else if (buff[i] != '\n' && buff[i] != '\0')
 			return (0);
 		i += 1;
 	}
-	if ((len == BUFF_SIZE && buff[i] != '\n') || nblocks < 4 || !(connections == 6 || connections == 8))
-		return (0);
-	return (1);
+	return (nblocks == 4 && (connections == 6 || connections == 8));
 }
 
 int	read_tetris(t_tetris *tetris, int fd)
