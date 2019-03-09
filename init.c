@@ -66,9 +66,11 @@ t_tetriminos     init_tetriminos(const char *str, char letter)
 {
         t_tetriminos      tetriminos;
 
+		tetriminos.x = 0;
+		tetriminos.y = 0;
         tetriminos.letter = letter;
         tetriminos.value = get_value(str);
-	tetriminos.width = get_width(tetriminos.value);
+		tetriminos.width = get_width(tetriminos.value);
         tetriminos.height = get_height(tetriminos.value);
         return (tetriminos);
 }
