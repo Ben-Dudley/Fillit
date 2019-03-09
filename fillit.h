@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 19:58:25 by bdudley           #+#    #+#             */
-/*   Updated: 2019/03/07 22:11:49 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/03/09 20:32:53 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,22 @@
 # include <fcntl.h>
 # include <unistd.h>
 # define BUFF_SIZE 21
-# define MAX_TETRIMINOS 26
+# define MAX_TETRIS 26
 
-typedef struct	s_tetriminos
+typedef struct	s_tetris
 {
-	char letter;
-	unsigned short value;
-	unsigned short width;
-	unsigned short height;
-	unsigned short x;
-	unsigned short y;
-} t_tetriminos;
+	char			letter;
+	unsigned short	value;
+	unsigned short	width;
+	unsigned short	height;
+	unsigned short	x;
+	unsigned short	y;
+}				t_tetris;
 
-t_tetriminos	init_tetriminos(const char *str, char letter);
-unsigned short        find_smallest_square(t_tetriminos tetriminos[27], int number);
-void			print(t_tetriminos tetriminos[27], unsigned short size_map, int number);
-int				read_tetriminos(t_tetriminos *tetriminos, int fd);
+int				read_tetris(t_tetris *tetris, int fd);
+t_tetris		init_tetris(const char *str, char letter);
+unsigned short	find_smallest_square(t_tetris *tetris, int tetris_count);
+void			print(t_tetris *tetris, unsigned short size_map,
+				int tetris_count);
 
 #endif

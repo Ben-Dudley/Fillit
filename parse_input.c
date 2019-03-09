@@ -1,75 +1,87 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_input.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jgoyette <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/09 16:16:06 by jgoyette          #+#    #+#             */
+/*   Updated: 2019/03/09 20:26:20 by bdudley          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
-#include <stdio.h>
 
 int	is_block_valid(const char *buff, int cell)
 {
-	if ((cell > 4 && buff[cell - 5] == '#') ||
-		(cell < 15 && buff[cell + 5] == '#') ||
-		(cell % 5 > 0 && buff[cell - 1] == '#') ||
-		(cell % 5 < 4 && buff[cell + 1] == '#'))
-		return (1);
-	return (0);
+	int	connections;
+
+	connections = 0;
+	if (cell > 4 && buff[cell - 5] == '#')
+		connections += 1;
+	if (cell < 15 && buff[cell + 5] == '#')
+		connections += 1;
+	if (cell % 5 > 0 && buff[cell - 1] == '#')
+		connections += 1;
+	if (cell % 5 < 4 && buff[cell + 1] == '#')
+		connections += 1;
+	return (connections == 6 || connections == 8);
 }
 
-int	is_tetriminos_valid(const char *buff, int len)
+int	is_tetris_valid(const char *buff, int len)
 {
 	int i;
 	int nblocks;
 
 	i = 0;
 	nblocks = 0;
-	printf("will check if tetriminos is valid: ");
 	while (i < len - 1)
 	{
-		//printf("[i = %d] \n", i);
 		if (i % 5 != 4)
 		{
 			if (buff[i] == '#')
 			{
 				nblocks += 1;
-				if (nblocks > 4 || !is_block_valid(buff, i)) {
-					printf("1\n");
-					return (0);}
+				if (nblocks > 4 || !is_block_valid(buff, i))
+					return (0);
 			}
-			else if (buff[i] != '.') {
-				printf("2\n");
-				return (0);}
+			else if (buff[i] != '.')
+				return (0);
 		}
-		else if (buff[i] != '\n'){
-			printf("3 |%c|\n", buff[i]);
-			return (0);}
+		else if (buff[i] != '\n')
+			return (0);
 		i += 1;
 	}
 	if ((len == BUFF_SIZE && buff[i] != '\n') || nblocks < 4)
 		return (0);
-	printf("0\n");
 	return (1);
 }
 
-int	read_tetriminos(t_tetriminos *tetriminos, int fd)
+int	read_tetris(t_tetris *tetris, int fd)
 {
 	char	buff[BUFF_SIZE + 1];
 	char	letter;
-	int	count;
-	int	nbytes;
+	int		count;
+	int		nbytes;
+	int		found_eof;
 
 	count = 0;
 	letter = 'A';
-	ft_bzero(tetriminos, sizeof(t_tetriminos) * MAX_TETRIMINOS + 1);
+	found_eof = 0;
+	ft_bzero(tetris, sizeof(t_tetris) * MAX_TETRIS + 1);
 	while ((nbytes = read(fd, buff, BUFF_SIZE)) >= BUFF_SIZE - 1)
 	{
-		printf("read nbytes: %d\n", nbytes);
 		buff[nbytes] = '\0';
-		if (count <= 25 && is_tetriminos_valid(buff, nbytes))
-			tetriminos[count] = init_tetriminos(buff, letter + count);
+		if (nbytes == 20)
+			found_eof = 1;
+		if (count <= 25 && is_tetris_valid(buff, nbytes))
+			tetris[count] = init_tetris(buff, letter + count);
 		else
 			break ;
 		count += 1;
 	}
-	printf("read %d bytes\n", nbytes);
 	close(fd);
-	if (nbytes == 0)
+	if (nbytes == 0 && found_eof)
 		return (count);
-	else
-		return (0);
+	return (0);
 }

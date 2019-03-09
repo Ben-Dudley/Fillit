@@ -5,123 +5,75 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/02 19:20:14 by bdudley           #+#    #+#             */
-/*   Updated: 2019/03/09 16:21:46 by bdudley          ###   ########.fr       */
+/*   Created: 2019/03/09 20:11:39 by bdudley           #+#    #+#             */
+/*   Updated: 2019/03/09 20:36:59 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include "stdio.h"
+#include <stdio.h>
 
-int				check_tetrimino(t_tetriminos *tetrimino,
+int				check_tetris(t_tetris *tetris, unsigned short map[17])
+{
+	short			row;
+
+	row = -1;
+	while (++row < tetris->height)
+		if (((0b1111000000000000 & (tetris->value << row * 4))
+					>> tetris->x) & map[tetris->y + row])
+			return (0);
+	return (1);
+}
+
+void			shape(t_tetris *tetris, unsigned short *map[17])
+{
+	short			row;
+
+	row = -1;
+	while (++row < tetris->height)
+		(*map)[tetris->y + row] = (*map)[tetris->y + row] ^
+			(((0b1111000000000000 & (tetris->value << row * 4)) >>
+			tetris->x) & (*map)[tetris->y + row]);
+}
+
+int				solution(t_tetris tetris[27],
 		unsigned short size_map, unsigned short map[17])
 {
-	short			row;
-	unsigned short	tmp;
-
-	row = -1;
-	while (++row < 4)
-	{
-		while ((((*tetrimino).x + (*tetrimino).width) > size_map)
-				&& (((*tetrimino).y + (*tetrimino).height) <= size_map))
-		{
-			(*tetrimino).y += 1;
-			(*tetrimino).x = 0;
-		}
-		if ((*tetrimino).y + (*tetrimino).height > size_map)
-			return (0);
-		printf("x = %d y = %d row =%d\n", (*tetrimino).x, (*tetrimino).y, row);
-		tmp = ((*tetrimino).value << 4 * row);
-		tmp = tmp >> 12;
-		tmp = (tmp << 12) >> (*tetrimino).x;
-		printf("tmp - %d, map = %d", tmp, map[(*tetrimino).y + row]);
-		if (tmp & map[(*tetrimino).y + row])
-		{
-			(*tetrimino).x++;
-			row = -1;
-		}
-	}
-	return (1);
-}
-
-void			put_shape(t_tetriminos tetrimino, unsigned short *map[17])
-{
-	short			row;
-	short			num;
-	unsigned short	tmp;
-
-	row = -1;
-	while (++row < 4)
-	{
-		tmp = (tetrimino.value << 4 * row);
-		tmp = tmp >> 12;
-		tmp = (tmp << 12) >> tetrimino.x;
-		(*map)[tetrimino.y + row] = (*map)[tetrimino.y + row] | tmp;
-//		printf("put = %d\n", (*map)[tetrimino.y + row]);
-	}
-}
-
-void			delete_shape(t_tetriminos tetrimino, unsigned short *map[17])
-{
-	short			row;
-	short			num;
-	unsigned short	tmp;
-
-	row = -1;
-	while (++row < 4)
-	{
-		tmp = (tetrimino.value << 4 * row);
-		tmp = tmp >> 12;
-		tmp = (tmp << 12) >> tetrimino.x;
-		(*map)[tetrimino.y + row] = (*map)[tetrimino.y + row] & ~tmp;
-	}
-}
-
-int				solution(t_tetriminos tetriminos[27], unsigned short size_map,
-		unsigned short map[17], int number)
-{
-	printf("Start! %d\n", size_map);
-	if (tetriminos[number].letter == '\0')
+	if (tetris->letter == '\0')
 		return (1);
-	if (check_tetrimino(&tetriminos[number], size_map, map))
+	tetris->y = 0;
+	while (tetris->y + tetris->height <= size_map)
 	{
-		printf("put_shape = %d\n", tetriminos[number].y);
-		put_shape(tetriminos[number], &map);
-		print(tetriminos, size_map, number + 1);
-		if (solution(tetriminos, size_map, map, number + 1))
-			return (1);
-	}
-	else
-	{
-		tetriminos[number].x = 0;
-		tetriminos[number].y = 0;
-		if (number - 1 >= 0)
+		tetris->x = 0;
+		while (tetris->x + tetris->width <= size_map)
 		{
-			printf("\tdelete_shape\n");
-			printf("number = %d\n", number - 1);
-			delete_shape(tetriminos[number - 1], &map);
-			print(tetriminos, size_map, number - 1);
-			printf("\n");
-			tetriminos[number - 1].x++;
-			printf("number = %d\n", number - 1);
-			solution(tetriminos, size_map, map, number - 1);
+			if (check_tetris(tetris, map))
+			{
+				shape(tetris, &map);
+				if (solution(tetris + 1, size_map, map))
+					return (1);
+				else
+					shape(tetris, &map);
+			}
+			tetris->x++;
 		}
-		else
-			return (0);
+		tetris->y++;
 	}
-	return (1);
+	tetris->x = 0;
+	tetris->y = 0;
+	return (0);
 }
 
-unsigned short	find_smallest_square(t_tetriminos tetriminos[27], int number)
+unsigned short	find_smallest_square(t_tetris tetris[27], int tetris_count)
 {
 	unsigned short	map[17];
 	unsigned short	size_map;
 
 	size_map = 2;
-	while (size_map * size_map < number * 4)
+	while (size_map * size_map < tetris_count * 4)
 		size_map++;
 	ft_bzero(map, 17 * sizeof(unsigned short));
-	while ((solution(tetriminos, size_map, map, 0)) == 0)
+	while ((solution(tetris, size_map, map)) == 0)
 	{
 		ft_bzero(map, 17 * sizeof(unsigned short));
 		size_map++;
