@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 14:52:25 by bdudley           #+#    #+#             */
-/*   Updated: 2019/03/07 22:11:40 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/03/09 13:24:26 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ void	print(t_tetriminos tetriminos[27], unsigned short size_map, int number)
 {
 	unsigned short x;
 	unsigned short y;
-	char str[size_map*(size_map +1)];
+	char str[size_map*(size_map +1) -1];
 	int i;
 
 	i = 0;
+	str[size_map*(size_map + 1) -1] = '\0';
 	while (++i < size_map*(size_map+1))
 	{
 		if  (i % (size_map+1) == 0)
@@ -49,4 +50,5 @@ void	print(t_tetriminos tetriminos[27], unsigned short size_map, int number)
 		}
 		i++;
 	}
+	ft_putstr(str);
 }
