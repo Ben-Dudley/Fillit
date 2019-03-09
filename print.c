@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 14:52:25 by bdudley           #+#    #+#             */
-/*   Updated: 2019/03/09 13:24:26 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/03/09 14:21:24 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	print(t_tetriminos tetriminos[27], unsigned short size_map, int number)
 			{
 				if ((tetriminos[i].value >> (16 - x -y*4 -1)) & 1)
 				{
-					printf("lolo %d *** %d *** %d *** %d\n", x, tetriminos[i].x, y, tetriminos[i].y);
+					//printf("lolo %d *** %d *** %d *** %d\n", x, tetriminos[i].x, y, tetriminos[i].y);
 					str[(size_map + 1)*(tetriminos[i].y + y) + tetriminos[i].x + x] = tetriminos[i].letter;
 		
 				}

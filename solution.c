@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 19:20:14 by bdudley           #+#    #+#             */
-/*   Updated: 2019/03/09 13:51:53 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/03/09 15:47:19 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int				check_tetrimino(t_tetriminos *tetrimino,
 		tmp = ((*tetrimino).value << 4 * row);
 		tmp = tmp >> 12;
 		tmp = (tmp << 12) >> (*tetrimino).x;
-		printf("index = %d", (*tetrimino).y);
+	//	printf("index = %d", (*tetrimino).y);
 		if (tmp & map[(*tetrimino).y + row])
 		{
 			(*tetrimino).x++;
@@ -56,7 +56,7 @@ void			put_shape(t_tetriminos tetrimino, unsigned short *map[17])
 		tmp = tmp >> 12;
 		tmp = (tmp << 12) >> tetrimino.x;
 		(*map)[tetrimino.y + row] = (*map)[tetrimino.y + row] + tmp;
-		printf("put = %d\n", (*map)[tetrimino.y + row]);
+//		printf("put = %d\n", (*map)[tetrimino.y + row]);
 	}
 }
 
@@ -84,11 +84,9 @@ int				solution(t_tetriminos tetriminos[27], unsigned short size_map,
 		return (1);
 	if (check_tetrimino(&tetriminos[number], size_map, map))
 	{
-		printf("put_shape = %d", tetriminos[number].y);
+		printf("put_shape = %d\n", tetriminos[number].y);
 		put_shape(tetriminos[number], &map);
-		printf("put = %d", map[1]);
-		print(tetriminos, size_map, number + 1);
-		exit(-1);
+	//	print(tetriminos, size_map, number + 1);
 		if (solution(tetriminos, size_map, map, number + 1))
 			return (1);
 	}
@@ -98,9 +96,10 @@ int				solution(t_tetriminos tetriminos[27], unsigned short size_map,
 		tetriminos[number].y = 0;
 		if (number - 1 >= 0)
 		{
-			printf("delete_shape");
+			printf("delete_shape\n");
 			delete_shape(tetriminos[number - 1], &map);
 			print(tetriminos, size_map, number + 1);
+			printf("\n");
 			tetriminos[number - 1].x++;
 			solution(tetriminos, size_map, map, number - 1);
 		}
