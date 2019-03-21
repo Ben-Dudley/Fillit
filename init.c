@@ -6,7 +6,7 @@
 /*   By: jgoyette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 16:08:56 by jgoyette          #+#    #+#             */
-/*   Updated: 2019/03/09 20:39:09 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/03/10 18:11:35 by jgoyette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,9 @@ unsigned short	get_width(unsigned short value)
 
 	width = 1;
 	i = 0;
-	while (i < 3)
+	while (i < 3 && value & (0b100010001000100 >> (1 * i)))
 	{
-		if (value & (0b100010001000100 >> (1 * i)))
-			width += 1;
-		else
-			break ;
+		width += 1;
 		i += 1;
 	}
 	return (width);
@@ -37,12 +34,9 @@ unsigned short	get_height(unsigned short value)
 
 	height = 1;
 	i = 0;
-	while (i < 3)
+	while (i < 3 && value & (0b111100000000 >> (4 * i)))
 	{
-		if (value & (0b111100000000 >> (4 * i)))
-			height += 1;
-		else
-			break ;
+		height += 1;
 		i += 1;
 	}
 	return (height);
@@ -70,15 +64,31 @@ unsigned short	get_value(const char *str)
 	return (value);
 }
 
-t_tetris		init_tetris(const char *str, char letter)
+t_tetris		*get_last(t_tetris *tetris, t_tetris t, int count)
 {
-	t_tetris	tetris;
+	int idx;
 
-	tetris.x = 0;
-	tetris.y = 0;
-	tetris.letter = letter;
-	tetris.value = get_value(str);
-	tetris.width = get_width(tetris.value);
-	tetris.height = get_height(tetris.value);
-	return (tetris);
+	idx = count - 1;
+	while (idx >= 0)
+	{
+		if (t.value == tetris[idx].value)
+			return (&tetris[idx]);
+		idx -= 1;
+	}
+	return (NULL);
+}
+
+t_tetris		init_tetris(const char *str, char letter,
+							t_tetris *tetris, int count)
+{
+	t_tetris	t;
+
+	t.x = 0;
+	t.y = 0;
+	t.letter = letter;
+	t.value = get_value(str);
+	t.width = get_width(t.value);
+	t.height = get_height(t.value);
+	t.last = get_last(tetris, t, count);
+	return (t);
 }

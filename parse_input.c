@@ -6,7 +6,7 @@
 /*   By: jgoyette <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 16:16:06 by jgoyette          #+#    #+#             */
-/*   Updated: 2019/03/09 21:12:55 by jgoyette         ###   ########.fr       */
+/*   Updated: 2019/03/10 16:50:35 by jgoyette         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	read_tetris(t_tetris *tetris, int fd)
 		if (nbytes == BUFF_SIZE - 1)
 			found_eof = 1;
 		if (count < MAX_TETRIS && is_tetris_valid(buff, nbytes))
-			tetris[count] = init_tetris(buff, letter + count);
+			tetris[count] = init_tetris(buff, letter + count, tetris, count);
 		else
 			break ;
 		count += 1;
